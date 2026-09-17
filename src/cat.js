@@ -18,6 +18,7 @@ export class Cat {
     this.mixer = new THREE.AnimationMixer(this.mesh);
 
     // Ajustá los índices según cómo vengan nombradas tus animaciones en el .glb
+    console.log('Animaciones cargadas:', gltf.animations.map(a => a.name));
     const idleClip = THREE.AnimationClip.findByName(gltf.animations, 'Idle') || gltf.animations[0];
     const walkClip = THREE.AnimationClip.findByName(gltf.animations, 'Walk') || gltf.animations[1];
 
@@ -38,6 +39,7 @@ export class Cat {
 
   // Llamar cada frame desde el loop principal
   update(deltaTime, moveVector, camera) {
+    // Actualiza el mixer para que las animaciones avancen segun el tiempo transcurrido
     this.mixer.update(deltaTime);
 
     const isMoving = moveVector.lengthSq() > 0.01;

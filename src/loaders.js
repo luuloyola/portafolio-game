@@ -15,7 +15,7 @@ export function loadModel(path, { scale = 1, position = null, castShadow = true 
         });
         gltf.scene.scale.setScalar(scale);
         if (position) gltf.scene.position.copy(position);
-        resolve(gltf); // gltf.scene y gltf.animations disponibles
+        resolve(gltf);
       },
       undefined,
       reject

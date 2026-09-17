@@ -1,13 +1,18 @@
 import * as THREE from 'three';
+import nipplejs from 'nipplejs'; 
 
 export class Controls {
   constructor() {
     this.isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     this.moveVector = new THREE.Vector2(0, 0); // x: izq/der, y: adelante/atrás
-    
+
+    const zone = document.getElementById('joystick-zone');
+
     if (this.isTouch) {
-      this._setupJoystick();
+      zone.style.display = 'block';
+      this._setupJoystick(zone);
     } else {
+      zone.style.display = 'none';
       this._setupKeyboard();
     }
   }
@@ -18,8 +23,7 @@ export class Controls {
     window.addEventListener('keyup', (e) => this.keys[e.code] = false);
   }
 
-  _setupJoystick() {
-    const zone = document.getElementById('joystick-zone');
+  _setupJoystick(zone) {
     this.joystick = nipplejs.create({
       zone,
       mode: 'static',
